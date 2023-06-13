@@ -19,7 +19,7 @@ To navigate from one page to another.
 
 <!-- DEEP UNDERSTANDING OF PROJECT: -->
 
-I am firstly using grid to make a matrix of 5 X 5. Then I have used another div for the position of robot and its position is stored in two usestates "positionX" and "positionY". Whenever any symbol isdropping in the logicPanel handleSymbolDrop function is called and it is managing the position of robot. If left operation is performed positionX is subtracted by 1 and similarly every other position is updated accordingly.
+I am firstly using grid to make a matrix of 5 X 5. Then I have used another div for the position of robot and its position is stored in two usestates "positionX" and "positionY". Whenever any symbol isdropping in the logicPanel position of robot is managed. If left operation is performed positionX is subtracted by 1 and similarly every other position is updated accordingly.
 
 Then we have logicPanel where the user is dragging the symbols. Below that we have control Panel where all 4 symbols are stored and there is play and reset button. On clicking on play button the game starts, On clicking on Reset button whole game gets reset.
 

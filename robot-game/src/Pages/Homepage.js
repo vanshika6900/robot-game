@@ -10,6 +10,8 @@ function Homepage() {
 
   const check = () => {
     if (positionX === 5 && positionY === 5) {
+      console.log(1);
+      setInstruction([]);
       Swal.fire({
         title: "YOU WON!!",
         width: 600,
@@ -26,11 +28,9 @@ function Homepage() {
       setPositionX(1);
       setPositionY(1);
       setLogicPanel(Array(14).fill(null));
-      setInstruction([]);
     }
   };
   const fetchInstruction = async (symbol) => {
-    console.log("symbol is ", symbol);
     try {
       const response = await fetch(
         `http://localhost:8080/api/instruction/${symbol}`,
@@ -42,25 +42,37 @@ function Homepage() {
         }
       );
       const data = await response.json();
-
-      setInstruction((e) => [...e, data.instruction]);
+      let x = positionX;
+      let y = positionY;
+      console.log("symbol is ", symbol, positionX, positionY);
+      if (symbol === "left") {
+        x = x - 1;
+      } else if (symbol === "up") {
+        y = y - 1;
+      } else if (symbol === "down") {
+        y = y + 1;
+      } else if (symbol === "right") {
+        x = x + 1;
+      }
+      if (x === 5 && y === 5) {
+        setInstruction([]);
+      } else {
+        setInstruction((e) => [...e, data.instruction]);
+      }
+      setPositionX(x);
+      setPositionY(y);
     } catch (error) {
       console.error("Error fetching instruction:", error);
     }
   };
-  const handleSymbolDrop = (symbol) => {
-    if (symbol === "left") {
-      setPositionX(positionX - 1);
-    } else if (symbol === "up") {
-      setPositionY(positionY - 1);
-    } else if (symbol === "down") {
-      setPositionY(positionY + 1);
-    } else if (symbol === "right") {
-      setPositionX(positionX + 1);
-    }
-  };
 
-  check();
+  useEffect(() => {
+    check();
+    if (positionX === 1 && positionY === 1) {
+      setInstruction([]);
+    }
+  }, [positionX, positionY]);
+
   return (
     <div>
       <nav className="text-3xl text-white bg-[#190a4d] h-20 items-center flex px-8">
@@ -103,7 +115,6 @@ function Homepage() {
       </div>
 
       <ControlPanel
-        onSymbolDrop={handleSymbolDrop}
         positionX={positionX}
         positionY={positionY}
         setPositionX={setPositionX}

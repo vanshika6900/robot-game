@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 function ControlPanel({
-  onSymbolDrop,
   positionX,
   positionY,
   setPositionY,
@@ -66,7 +65,6 @@ function ControlPanel({
     } else {
       handleDrop(index, symbol);
       fetchInstruction(symbol);
-      onSymbolDrop(symbol);
     }
   };
 
